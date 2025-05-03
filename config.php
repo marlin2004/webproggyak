@@ -1,14 +1,22 @@
 <?php
+session_start();
+
 $menu = [
-    'fooldal' => 'Főoldal',
-    'urlap' => 'Űrlap',
-    'tablazat' => 'Táblázat'
+    "home" => "Főoldal",
+    "about" => "Rólunk",
 ];
 
-if (!isset($_SESSION['felhasznalo'])) {
-    $menu['belepes'] = 'Belépés';
-    $menu['regisztracio'] = 'Regisztráció';
+if (!isset($_SESSION["user"])) {
+    $menu["login"] = "Belépés";
 } else {
-    $menu['kilepes'] = 'Kilépés';
+    $menu["logout"] = "Kilépés";
+}
+
+function getCurrentUserDisplay() {
+    if (isset($_SESSION["user"])) {
+        $u = $_SESSION["user"];
+        return "Bejelentkezett: {$u['lastname']} {$u['firstname']} ({$u['username']})";
+    }
+    return "";
 }
 ?>
